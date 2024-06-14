@@ -7,8 +7,8 @@ export const fetchMealOfTheDay = async () => {
   return response.data;
 };
 
-export const fetchMealDetails = async (mealId) => {
-  const response = await axios.get(`${API_BASE_URL}/lookup.php?i=${mealId}`);
+export const fetchMealDetails = async (idMeal) => {
+  const response = await axios.get(`${API_BASE_URL}/lookup.php?i=${idMeal}`);
   return response.data;
 };
 

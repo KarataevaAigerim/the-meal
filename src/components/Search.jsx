@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { searchMeals } from '../api';
+import { searchMeals } from '../api.jsx';
 
 const Search = () => {
   const [query, setQuery] = useState('');

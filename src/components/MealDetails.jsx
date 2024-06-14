@@ -1,90 +1,75 @@
-// import React, { useEffect, useState } from 'react';
-// import { useParams } from 'react-router-dom';
-// import Navbar from '../components/Navbar';
-// import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import Navbar from '../components/Navbar';
+import { fetchMealDetails } from '../api';
 
-// const MealDetails = () => {
-//   const { mealId } = useParams();
-//   const [meal, setMeal] = useState(null);
-
-//   useEffect(() => {
-//     const fetchMeal = async () => {
-//       try {
-//         const response = await axios.get(`/api/meals/${mealId}`);
-//         setMeal(response.data);
-//       } catch (error) {
-//         console.error("Error fetching meal details:", error);
-//       }
-//     };
-
-//     fetchMeal();
-//   }, [mealId]);
-
-//   if (!meal) {
-//     return <div>Loading...</div>;
-//   }
-
-//   return (
-//     <div>
-//       <Navbar />
-//       <div>
-//         <h1>{meal.name}</h1>
-//         <p>{meal.category}</p>
-//         <img src={meal.image} alt={meal.name} style={{ width: '483px', height: '483px' }} />
-//         <div>
-//           <h2>Ingredients</h2>
-//           <ul>
-//             {meal.ingredients.map((ingredient, index) => (
-//               <li key={index}>{ingredient}</li>
-//             ))}
-//           </ul>
-//         </div>
-//         <div>
-//           <h2>Instructions</h2>
-//           <p>{meal.instructions}</p>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default MealDetails;
-
-
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-
-const MealDetails = ({ idMeal }) => {
-  const [mealDetails, setMealDetails] = useState(null);
+const MealDetails = () => {
+  const { idMeal } = useParams();
+  const [meal, setMeal] = useState(null);
 
   useEffect(() => {
-    const fetchMeal = async () => {
+    const getMealDetails = async () => {
       try {
-        const response = await axios.get(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idMeal}`);
-        setMealDetails(response.data.meals[0]);
+        const result = await fetchMealDetails(idMeal);
+        if (result.meals && result.meals.length > 0) {
+          setMeal(result.meals[0]);
+        }
       } catch (error) {
         console.error("Error fetching meal details:", error);
       }
     };
 
-    fetchMeal();
+    getMealDetails();
   }, [idMeal]);
 
-  if (!mealDetails) {
+  if (!meal) {
     return <div>Loading...</div>;
+  }
+
+  // Extract ingredients and measures
+  const ingredients = [];
+  for (let i = 1; i <= 20; i++) {
+    if (meal[`strIngredient${i}`]) {
+      ingredients.push(`${meal[`strMeasure${i}`]} ${meal[`strIngredient${i}`]}`);
+    }
   }
 
   return (
     <div>
-      <h1>{mealDetails.strMeal}</h1>
-      <p>{mealDetails.strArea}/{mealDetails.strCategory}</p>
-      <ul>
-        <li>{mealDetails.strIngredient1}</li>
-      </ul>
-      <img src={mealDetails.strMealThumb} alt={mealDetails.strMeal} />
-      <p>{mealDetails.strInstructions}</p>
+      <Navbar />
+      <div>
+        <h1>{meal.strMeal}</h1>
+        <p><strong>Category:</strong> {meal.strCategory}</p>
+        <p><strong>Area:</strong> {meal.strArea}</p>
+        <img src={meal.strMealThumb} alt={meal.strMeal} style={{ width: '483px', height: '483px' }} />
+        <div>
+          <h2>Ingredients</h2>
+          <ul>
+            {ingredients.map((ingredient, index) => (
+              <li key={index}>{ingredient}</li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <h2>Instructions</h2>
+          <p>{meal.strInstructions}</p>
+        </div>
+        {meal.strYoutube && (
+          <div>
+            <h2>Video</h2>
+            <a href={meal.strYoutube} target="_blank" rel="noopener noreferrer">Watch on YouTube</a>
+          </div>
+        )}
+        {meal.strSource && (
+          <div>
+            <h2>Source</h2>
+            <a href={meal.strSource} target="_blank" rel="noopener noreferrer">Recipe Source</a>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
 
 export default MealDetails;
+

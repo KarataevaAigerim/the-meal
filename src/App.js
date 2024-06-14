@@ -7,9 +7,10 @@ const App = () => {
   return (
     <Routes>
       <Route path="/" element={<LandingPage />} />
-      <Route path="/meal/:mealId" element={<MealDetails />} />
+      <Route path="/meal/:idMeal" element={<MealDetails />} />
     </Routes>
   );
 };
 
 export default App;
+
