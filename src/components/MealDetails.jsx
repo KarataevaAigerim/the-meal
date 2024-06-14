@@ -9,6 +9,7 @@ const MealDetails = () => {
 
   useEffect(() => {
     const getMealDetails = async () => {
+        console.log(idMeal);
       try {
         const result = await fetchMealDetails(idMeal);
         if (result.meals && result.meals.length > 0) {
@@ -18,6 +19,7 @@ const MealDetails = () => {
         console.error("Error fetching meal details:", error);
       }
     };
+    
 
     getMealDetails();
   }, [idMeal]);

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'www.themealdb.com/api/json/v1/1';
+const API_BASE_URL = 'https://www.themealdb.com/api/json/v1/1';
 
 export const fetchMealOfTheDay = async () => {
   const response = await axios.get(`${API_BASE_URL}/random.php`);
