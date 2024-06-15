@@ -20,7 +20,7 @@ const Search = () => {
   return (
     <div>
       <h2>Find your Meal</h2>
-      <form onSubmit={handleSearch}>
+      <form onSubmit={handleSearch} className='search-block'>
         <input
           type="text"
           value={query}
