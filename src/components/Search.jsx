@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import { searchMeals } from '../api.jsx';
+import MealCard from './MealCard.jsx';
 
 const Search = () => {
   const [query, setQuery] = useState('');
@@ -30,10 +31,7 @@ const Search = () => {
       </form>
       <div>
         {searchResults && searchResults.map((meal) => (
-          <div key={meal.idMeal}>
-            <h3>{meal.strMeal}</h3>
-            <img src={meal.strMealThumb} alt={meal.strMeal} />
-          </div>
+          <MealCard key={meal.idMeal} meal={meal} />
         ))}
       </div>
     </div>

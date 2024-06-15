@@ -62,12 +62,6 @@ const MealDetails = () => {
             <a href={meal.strYoutube} target="_blank" rel="noopener noreferrer">Watch on YouTube</a>
           </div>
         )}
-        {meal.strSource && (
-          <div>
-            <h2>Source</h2>
-            <a href={meal.strSource} target="_blank" rel="noopener noreferrer">Recipe Source</a>
-          </div>
-        )}
       </div>
     </div>
   );
