@@ -25,41 +25,46 @@ const MealDetails = () => {
   }, [idMeal]);
 
   if (!meal) {
-    return <div>Loading...</div>;
+    return <div>Something is wrong...</div>;
   }
 
   // Extract ingredients and measures
   const ingredients = [];
   for (let i = 1; i <= 20; i++) {
-    if (meal[`strIngredient${i}`]) {
-      ingredients.push(`${meal[`strMeasure${i}`]} ${meal[`strIngredient${i}`]}`);
+    const ingredient = meal[`strIngredient${i}`];
+    const measure = meal[`strMeasure${i}`];
+    if (ingredient) {
+      ingredients.push({ ingredient, measure });
     }
   }
 
   return (
     <div>
       <Navbar />
-      <div>
-        <h1>{meal.strMeal}</h1>
-        <p><strong>Category:</strong> {meal.strCategory}</p>
-        <p><strong>Area:</strong> {meal.strArea}</p>
-        <img src={meal.strMealThumb} alt={meal.strMeal} style={{ width: '483px', height: '483px' }} />
-        <div>
-          <h2>Ingredients</h2>
-          <ul>
-            {ingredients.map((ingredient, index) => (
-              <li key={index}>{ingredient}</li>
-            ))}
-          </ul>
+      <div className="meal-details">
+        <div className='meal-details-info-block'>
+            <div className='meal-details-info-text'>
+                <h1 className='title'>{meal.strMeal}</h1>
+                <p>{meal.strCategory} | {meal.strArea}</p>
+                <div className='meal-details-ingridients'>
+                    <ul>
+                    {ingredients.map((item, index) => (
+                    <li key={index}> - {item.ingredient} <strong>{item.measure}</strong></li>
+                    ))}
+                    </ul>
+                </div>
+            </div>
+            <div className='meal-details-info-img'>
+                <img src={meal.strMealThumb} alt={meal.strMeal} style={{ width: '483px', height: '483px' }} />
+            </div>  
         </div>
         <div>
           <h2>Instructions</h2>
-          <p>{meal.strInstructions}</p>
+          <p className='instructions'>{meal.strInstructions}</p>
         </div>
         {meal.strYoutube && (
           <div>
-            <h2>Video</h2>
-            <a href={meal.strYoutube} target="_blank" rel="noopener noreferrer">Watch on YouTube</a>
+            <a href={meal.strYoutube} target="_blank" rel="noopener noreferrer" className='youtube-link'>Watch on YouTube</a>
           </div>
         )}
       </div>
