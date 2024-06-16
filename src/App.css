@@ -99,12 +99,16 @@ font-size: 16px;
 }
 
 .meal-block {
-  margin-bottom: 40px;
-  padding: 30px; /* Adjusted padding for a more balanced look */
+  margin: 40px;
+  padding: 30px; 
   overflow: hidden;
   background: white;
-  display: flex; /* Ensures the contents are displayed in a row */
-  align-items: center; /* Vertically center the items */
+  display: flex; 
+  align-items: center;
+}
+.meal-block:hover {
+  box-shadow: 10px 12px 29px -14px rgba(0, 0, 0, .75);
+  border-radius: 10px;
 }
 
 .meal-link {
@@ -118,6 +122,8 @@ font-size: 16px;
   height: auto; 
   object-fit: cover; 
   margin-right: 20px; 
+  border-radius: 8px;
+  box-shadow: 10px 12px 29px -14px rgba(0, 0, 0, .75);
 }
 
 .meal-block h3 {
