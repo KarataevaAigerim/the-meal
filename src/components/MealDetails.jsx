@@ -55,7 +55,7 @@ const MealDetails = () => {
                 </div>
             </div>
             <div className='meal-details-info-img'>
-                <img src={meal.strMealThumb} alt={meal.strMeal} style={{ width: '483px', height: '483px' }} />
+                <img src={meal.strMealThumb} alt={meal.strMeal} />
             </div>  
         </div>
         <div>
